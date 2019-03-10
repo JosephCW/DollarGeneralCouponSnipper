@@ -5,7 +5,7 @@
 // @include https://dg.coupons.com/coupons/*
 // ==/UserScript==
 
-var refreshDelayInSeconds = 3;
+var refreshDelayInSeconds = 7;
 
 // Function to click on an element.
 function click(elm) {
@@ -19,16 +19,22 @@ try {
   var coupons = document.getElementsByClassName("media-body");
   for (i = 0; i < coupons.length; i++) {
     var current_coupon = coupons[i];
-  	var add_button = current_coupon.getElementsByClassName("add-text")[0];
+    var add_button = current_coupon.getElementsByClassName("add-text")[0];
     click(add_button);
   }
   
   // Clicked all the add buttons on the page.
   // Time for a refresh :)
   setTimeout(
-    function() { 
-    	location.reload(); 
-  	}, refreshDelayInSeconds * 1000);
+    function() {
+      locationlreadyAdded = document.getElementsByClassName("itemCount")[0].textContent;
+      var itemsAvailable = document.getElementsByClassName("itemSelector")[0].children[1].textContent.split(" ")[0];
+      if (itemsAlreadyAdded !== itemsAvailable) {
+        location.reload();
+      } else {
+        alert("Dollar General Coupon Snipper\nAll coupons have been clicked already!");
+      }.reload();
+    }, refreshDelayInSeconds * 1000);
   
 } catch (e) {
   console.log("Encountered an exception while parsing DG page!");
